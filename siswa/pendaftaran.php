@@ -41,7 +41,8 @@
         $a="";
         $b=$nis;
         $c=$nama;
-        $d=$e=$f=$g=$h=$i=$j="";
+        $g=rand((2*10),(4*10))/10; // random ipk
+        $d=$e=$f=$h=$i=$j="";
         
         function active_pil_beasiswa($value='A', $input){
             $result = $value==$input?'selected':'';
@@ -111,7 +112,7 @@
                 <div class="row mb-3">
                     <label for="inputIPK" class="col-sm-2 col-form-label">IPK Terakhir</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="ipk" name="ipk" required value="<?php echo $g; ?>">
+                        <input type="number" class="form-control" id="ipk" name="ipk" required value="<?php echo $g; ?>" readonly>
                     </div>
                 </div>
 
@@ -168,8 +169,8 @@
     var bks = document.getElementById('berkas');
     var tmbl = document.getElementById('tombol');
 
-    nilaiIPK.addEventListener('change', function () {
-        if (nilaiIPK.value < 3) {
+    function checkIpk(ipk){
+        if (ipk < 3) {
             pilBeasiswa.disabled = true; // Menonaktifkan
             bks.disabled = true; // Menonaktifkan
             tmbl.disabled = true; // Menonaktifkan
@@ -178,5 +179,13 @@
             bks.disabled = false; // Mengaktifkan
             tmbl.disabled = false; // Mengaktifkan
         }
+    }
+
+    nilaiIPK.addEventListener('change', function () {
+       checkIpk(nilaiIPK.value);
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        checkIpk(nilaiIPK.value);
     });
 </script>
